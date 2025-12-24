@@ -96,7 +96,7 @@ android.presplash_color = #FFFFFF
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
 android.permissions = android.permission.CAMERA, android.permission.USB, android.permission.FOREGROUND_SERVICE
 # (list) features (adds uses-feature -tags to manifest)
-android.features = android.hardware.usb.host, android.hardware.camera
+#android.features = android.hardware.usb.host, android.hardware.camera
 
 # (int) Target Android API, should be as high as possible.
 
