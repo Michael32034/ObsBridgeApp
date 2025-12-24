@@ -1,5 +1,6 @@
 package org.obsbridge;
 
+import android.app.PendingIntent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
@@ -23,5 +24,8 @@ public class Bridge {
     for (UsbDevice device : connectedDevices.values()) {
       Log.d(TAG, "#UsbDevice: " + device.getDeviceName());
     }
+    PendingIntent permissionIntent = PendingIntent.getBroadcast(
+        this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+    usbManager.requestPermission(device, permissionIntent);
   }
 }

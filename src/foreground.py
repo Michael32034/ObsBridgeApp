@@ -6,7 +6,7 @@ from time import sleep
 def main():
     # Notification для foreground service
     notification.notify(
-        app_name="ObsBridgeApp"
+        app_name="ObsBridgeApp",
         title="ObsBridgeApp Service",
         message="Сервіс працює у фоні",
         timeout=5
