@@ -46,9 +46,11 @@ class MyApp(App):
         self.service = autoclass(self.transfering_procces_name)
         mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
         argument = ""
+        print("#Start service")
         self.service.start(mActivity, argument)
 
     def click_button(self, _):
+        print("#Button clicked")
         if self.started:
             self.connect_stop()
             self.status_button.text = "Start"
