@@ -6,7 +6,7 @@ title = ObsBridgeApp
 package.name = obsbridgeapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = io.github.obs_bridge_app
+package.domain = io.github.michael32034
 
 # (str) Source code where the main.py live
 source.dir = ./src
@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.2
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -138,7 +138,7 @@ android.ndk = 25b
 # agreements. This is intended for automation only. If set to False,
 # the default, you will be shown the license when first running
 # buildozer.
-# android.accept_sdk_license = False
+android.accept_sdk_license = True
 
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.kivy.android.PythonActivity
