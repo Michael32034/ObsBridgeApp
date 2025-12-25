@@ -1,4 +1,5 @@
 from android import mActivity
+from android.content import Intent
 from jnius import autoclass, cast
 from kivy.app import App
 from kivy.clock import Clock
@@ -6,6 +7,11 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 class MyApp(App):
@@ -44,10 +50,11 @@ class MyApp(App):
 
     def connect(self):
         self.service = autoclass(self.transfering_procces_name)
-        mActivity = autoclass("org.kivy.android.PythonActivity").mActivity
-        argument = ""
-        print("#Start service")
-        self.service.start(mActivity, argument)
+        context = mActivity.getApplicationContext()
+        intent = Intent(context, self.service)
+        logger.info("Start service")
+        context.startForegroundService(intent)
+        logger.info("Starting func called")
 
     def click_button(self, _):
         print("#Button clicked")
