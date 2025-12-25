@@ -12,7 +12,7 @@ class MyApp(App):
     # Запущений процес чи ні
     started = False
     connection = False
-    transfering_procces_name = "io.github.obs_bridge_app.ServiceTransfering"
+    transfering_procces_name = "io.github.michael32034.obsbridgeapp.ServiceTransfering"
 
     def build(self):
         # Screen Layout
