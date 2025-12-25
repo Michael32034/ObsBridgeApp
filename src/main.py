@@ -1,4 +1,4 @@
-from android import mActivity, service
+from android import mActivity
 from jnius import autoclass, cast
 from kivy.app import App
 from kivy.clock import Clock
