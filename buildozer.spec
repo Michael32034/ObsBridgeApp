@@ -9,7 +9,7 @@ package.name = obsbridgeapp
 package.domain = io.github.michael32034
 
 # (str) Source code where the main.py live
-source.dir = ./src
+source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas
@@ -53,7 +53,7 @@ icon.filename = %(source.dir)s/ObsBridgeApp_icon.png
 orientation = portrait
 
 # (list) List of service to declare
-services = Transfering:src/foreground.pyc:foreground
+services = Transfering:foreground.py:foreground
 
 #
 # OSX Specific
