@@ -12,7 +12,7 @@ import java.util.HashMap;
 // import q
 
 public class Bridge {
-  private static final String TAG = "MyActivity";
+  private static final String TAG = "ObsBridgeApp#java";
   public static void run() {
     Log.d(TAG, "#ObsBridgeApp running");
 

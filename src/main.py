@@ -1,5 +1,4 @@
 from android import mActivity
-from android.content import Intent
 from jnius import autoclass, cast
 from kivy.app import App
 from kivy.clock import Clock
@@ -11,7 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ObsBridgeApp#ui")
 
 
 class MyApp(App):
@@ -50,14 +49,12 @@ class MyApp(App):
 
     def connect(self):
         self.service = autoclass(self.transfering_procces_name)
-        context = mActivity.getApplicationContext()
-        intent = Intent(context, self.service)
         logger.info("Start service")
-        context.startForegroundService(intent)
+        self.service.start(mActivity, "")
         logger.info("Starting func called")
 
     def click_button(self, _):
-        print("#Button clicked")
+        logger.info("Button clicked")
         if self.started:
             self.connect_stop()
             self.status_button.text = "Start"
