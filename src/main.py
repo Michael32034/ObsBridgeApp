@@ -9,7 +9,10 @@ from kivy.uix.boxlayout import BoxLayout
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(
+    level=logging.CRITICAL,
+    format="%(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger("ObsBridgeApp#ui")
 
 
