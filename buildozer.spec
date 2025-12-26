@@ -53,7 +53,7 @@ icon.filename = %(source.dir)s/ObsBridgeApp_icon.png
 orientation = portrait
 
 # (list) List of service to declare
-services = Transfering:src/foreground.py:foreground
+services = Transfering:src/foreground.pyc:foreground
 
 #
 # OSX Specific
