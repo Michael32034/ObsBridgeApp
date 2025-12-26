@@ -100,7 +100,7 @@ android.permissions = android.permission.CAMERA, android.permission.USB, android
 
 # (int) Target Android API, should be as high as possible.
 
-android.api = 31
+android.api = 35
 
 android.build_tools_version = 33.0.2
 
