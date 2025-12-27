@@ -1,6 +1,7 @@
 package org.obsbridge;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
