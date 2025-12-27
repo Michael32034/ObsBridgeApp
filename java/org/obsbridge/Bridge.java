@@ -1,12 +1,13 @@
 package org.obsbridge;
 
-import android.app.PendingIntent;
-import android.content.Context;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
+#
 import android.util.Log;
-import java.util.HashMap;
+// import java.util.HashMap;
 // import android.hardware.camera2.CameraManager;
+// import android.app.PendingIntent;
+// import android.content.Context;
+// import android.hardware.usb.UsbDevice;
+// import android.hardware.usb.UsbManager;
 // import android.hardware.usb.UsbConstants;
 // import android.hardware.usb.UsbEndpoint;
 // import android.hardware.usb.UsbInterface;
@@ -15,16 +16,17 @@ import java.util.HashMap;
 public class Bridge {
   private static final String TAG = "ObsBridgeApp#java";
   public static void run() {
-    Log.d(TAG, "#ObsBridgeApp running");
+    Log.d(TAG, "ObsBridgeApp running(java)");
 
-    Log.d(TAG, "#Connecting to computer");
-    UsbManager usbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
-
-    HashMap<String, UsbDevice> connectedDevices = usbManager.getDeviceList();
-
-    for (UsbDevice device : connectedDevices.values()) {
-      Log.d(TAG, "#UsbDevice: " + device.getDeviceName());
-    }
+    // Log.d(TAG, "#Connecting to computer");
+    // UsbManager usbManager =
+    // (UsbManager)getSystemService(Context.USB_SERVICE);
+    //
+    // HashMap<String, UsbDevice> connectedDevices = usbManager.getDeviceList();
+    //
+    // for (UsbDevice device : connectedDevices.values()) {
+    //   Log.d(TAG, "#UsbDevice: " + device.getDeviceName());
+    // }
     /*
     PendingIntent permissionIntent = PendingIntent.getBroadcast(
         this, 0, new Intent(ACTION_USB_PERMISSION), 0);
