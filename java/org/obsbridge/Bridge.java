@@ -1,6 +1,5 @@
 package org.obsbridge;
 
-#
 import android.util.Log;
 // import java.util.HashMap;
 // import android.hardware.camera2.CameraManager;
