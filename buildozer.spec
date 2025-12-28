@@ -36,7 +36,7 @@ version = 0.2
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,pyjnius,android
+requirements = python3, kivy, pyjnius, android, https://github.com/Fector101/android_notify/archive/without-androidx.zip
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -94,7 +94,7 @@ android.presplash_color = #FFFFFF
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = INTERNET, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, android.permission.CAMERA, android.permission.USB, android.permission.FOREGROUND_SERVICE
+android.permissions = CAMERA, USB, FOREGROUND_SERVICE, POST_NOTIFICATIONS
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host, android.hardware.camera
 

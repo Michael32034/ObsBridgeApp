@@ -2,18 +2,45 @@ from android import mActivity
 from jnius import autoclass, cast
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.Logger import Logger
+from kivy.logger import Logger
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
+from android_notify import Notification
+
+
+class TransferingService:
+    java_class = "io.github.michael32034.obsbridgeapp.ServiceTransfering"
+
+    def start(self) -> None:
+        BuildVersion = autoclass("android.os.Build$VERSION")
+        ServiceInfo = autoclass("android.content.pm.ServiceInfo")
+        PythonService = autoclass("org.kivy.android.PythonService")
+
+        service = PythonService.mService
+        foreground_type = (
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
+            | ServiceInfo.FOREGROUND_SERVICE_CONNECTED_DEVICE
+            if BuildVersion.SDK_INT >= 30
+            else 0
+        )
+
+        n = Notification(
+            title="Foreground Service Active",
+            message="This service is running in the foreground",
+        )
+        builder = n.start_building()
+
+        service.startForeground(n.id, builder.build(), foreground_type)
+
+    def check(self) -> bool:
+        return True
 
 
 class MyApp(App):
     # Запущений процес чи ні
     started = False
-    connection = False
-    transfering_procces_name = "io.github.michael32034.obsbridgeapp.ServiceTransfering"
 
     def build(self):
         # Screen Layout
@@ -23,7 +50,7 @@ class MyApp(App):
         self.header = Label(text="ObsBridgeApp", font_size="25px")
         self.text = Label(
             text="App for emulating webcam \n Connect phone to computer",
-            font_size="15px",
+            font_size="30px",
         )
         self.status = BoxLayout()
         self.status_label = Label(
@@ -41,28 +68,24 @@ class MyApp(App):
         self.main.add_widget(self.text)
         self.main.add_widget(self.status)
         self.main.add_widget(self.bottom_void)
-        return self.main
 
-    def connect(self):
-        self.service = autoclass(self.transfering_procces_name)
-        Logger.info("Start service")
-        self.service.start(mActivity, "")
-        Logger.info("Starting func called")
+        self.transfering = TransferingService()
+
+        return self.main
 
     def click_button(self, _):
         Logger.info("Button clicked")
         if self.started:
-            self.connect_stop()
             self.status_button.text = "Start"
-            self.connection = True
         else:
-            self.connect()
-            Clock.schedule_interval(self.check_connection, 0.5)
-            self.status_button.text = "Stop"
+            self.transfering.start()
+            self.status_button.text = "Don't resolved"
+            self.status_button.disabled = True
             self.status_label.text = "[color=#4293FF]Waiting[/color]"
-            self.connection = True
+            Clock.schedule_interval(self.check_connection, 0.5)
 
-    def check_connection(self, _):
+    def check_connection(self):
+        self.status_label.text = "[color=#4293FF]Waiting[/color]"
         status = False
 
         service_name = self.transfering_procces_name
@@ -74,13 +97,11 @@ class MyApp(App):
         for service in manager.getRunningServices(100):
             if service.service.getClassName() == service_name:
                 status = True
+                Logger.info("AFS: Class '" + service.service.getClassName() + "'")
         if status:
             self.status_label.text = "[color=#00FF00]Connections active[/color]"
         else:
             self.status_label.text = "[color=#FF0000]Disconnect[/color]"
-
-    def connection_stop(self):
-        self.service.stopSelf()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,5 @@
 print("lokrestts")
-import logging
 from jnius import autoclass
-from time import sleep
 from kivy.logger import Logger
 
 def main():
