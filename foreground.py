@@ -2,9 +2,10 @@ print("lokrestts")
 from jnius import autoclass
 from kivy.logger import Logger
 
+
 def main():
     # Notification для foreground service
-    Logger.info("Transfering: Java service run")
+    Logger.info("Transfering: Java sclass run")
     java_service = autoclass("org.obsbridge.Bridge")
     java_service.run()
 

@@ -18,7 +18,7 @@ class TransferingService:
         ServiceInfo = autoclass("android.content.pm.ServiceInfo")
         PythonService = autoclass("org.kivy.android.PythonService")
 
-        self.main = autoclass(self.java_class).mService
+        self.main = autoclass(self.java_class)
         foreground_type = (
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
             | ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
