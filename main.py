@@ -18,10 +18,10 @@ class TransferingService:
         ServiceInfo = autoclass("android.content.pm.ServiceInfo")
         PythonService = autoclass("org.kivy.android.PythonService")
 
-        service = PythonService.mService
+        self.main = autoclass(self.java_class).mService
         foreground_type = (
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
-            | ServiceInfo.FOREGROUND_SERVICE_CONNECTED_DEVICE
+            | ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
             if BuildVersion.SDK_INT >= 30
             else 0
         )
@@ -32,10 +32,22 @@ class TransferingService:
         )
         builder = n.start_building()
 
-        service.startForeground(n.id, builder.build(), foreground_type)
+        self.main.startForeground(n.id, builder.build(), foreground_type)
 
     def check(self) -> bool:
-        return True
+        context = mActivity.getApplicationContext()
+        manager = cast(
+            "android.app.ActivityManager",
+            mActivity.getSystemService(context.ACTIVITY_SERVICE),
+        )
+        for service in manager.getRunningServices(100):
+            Logger.debug("AFS: Class '" + service.service.getClassName() + "'")
+            if service.service.getClassName() == self.java_class:
+                return True
+        return False
+
+    def stop(self):
+        self.main.stopSelf()
 
 
 class MyApp(App):
