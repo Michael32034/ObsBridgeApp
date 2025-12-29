@@ -5,31 +5,33 @@
 
 # ./p4a/hook.py
 from pathlib import Path
-from pythonforandroid.toolchain import ToolchainCL
 
-def after_apk_build(toolchain: ToolchainCL):
-  manifest_file = Path(toolchain.\_dist.dist_dir) / "src" / "main" / "AndroidManifest.xml"
-  text = manifest_file.read_text(encoding="utf-8")
 
-  # Change these three lines to fit your use-case 
-  package = "io.github.michael32034.obsbridgeapp" # Find value in your buildozer.spec "package.domain.package.name"
-  service_name="Transfering"
-  foreground_type="camera|connectedDevice"
+def after_apk_build(toolchain):
+    manifest_file = (
+        Path(toolchain._dist.dist_dir) / "src" / "main" / "AndroidManifest.xml"
+    )
+    text = manifest_file.read_text(encoding="utf-8")
 
-  target = f'android:name="{package}.Service{service_name.capitalize()}"'
+    # Change these three lines to fit your use-case
+    package = "io.github.michael32034.obsbridgeapp"  # Find value in your buildozer.spec "package.domain.package.name"
+    service_name = "Transfering"
+    foreground_type = "camera|connectedDevice"
 
-  # Inject foregroundServiceType
-  pos = text.find(target)
+    target = f'android:name="{package}.Service{service_name.capitalize()}"'
 
-  if pos != -1:
-    end = text.find("/>", pos)
-    text = (text[:end] + 'android:foregroundServiceType="{foreground_type}"' + text[end:])
-    print("Successfully Added foregroundServiceType to ServiceMydownloader")
+    # Inject foregroundServiceType
+    pos = text.find(target)
 
-  text = text.replace("</application>", f"{receiver_xml}\n</application>")
-  print("Successfully added Receiver")
+    if pos != -1:
+        end = text.find("/>", pos)
+        text = (
+            text[:end]
+            + f' android:foregroundServiceType="{foreground_type}"'
+            + text[end:]
+        )
+        print("Successfully Added foregroundServiceType to ServiceMydownloader")
 
-  # Write back the final manifest
-  manifest_file.write_text(text, encoding="utf-8")
-  print("Manifest update completed",text)
-
+    # Write back the final manifest
+    manifest_file.write_text(text, encoding="utf-8")
+    print("Manifest update completed", text)
