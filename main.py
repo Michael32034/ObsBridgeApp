@@ -1,3 +1,4 @@
+from kivy.graphics import Canvas, Color
 from android import mActivity
 from jnius import autoclass, cast
 from kivy.app import App
@@ -7,6 +8,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
+
 from android_notify import Notification
 
 
@@ -18,7 +20,7 @@ class TransferingService:
         ServiceInfo = autoclass("android.content.pm.ServiceInfo")
         PythonService = autoclass("org.kivy.android.PythonService")
 
-        self.main = autoclass(self.java_class)
+        self.main = autoclass(self.java_class).mService
         foreground_type = (
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
             | ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
@@ -57,9 +59,12 @@ class MyApp(App):
     def build(self):
         # Screen Layout
         self.main = BoxLayout(orientation="vertical")
+        self.main.canvas = Canvas()
+        self.main.canvas.add(Color(0.32, 0.26, 0.59))
 
-        self.top_void = Widget()
-        self.header = Label(text="ObsBridgeApp", font_size="25px")
+        self.top_l_void = Widget()
+        self.bottom_l_void = Widget()
+        self.header = Label(text="ObsBridgeApp", font_size="78px")
         self.text = Label(
             text="App for emulating webcam \n Connect phone to computer",
             font_size="30px",
@@ -75,8 +80,9 @@ class MyApp(App):
 
         self.status.add_widget(self.status_label)
         self.status.add_widget(self.status_button)
-        self.main.add_widget(self.top_void)
+        self.main.add_widget(self.top_l_void)
         self.main.add_widget(self.header)
+        self.main.add_widget(self.bottom_l_void)
         self.main.add_widget(self.text)
         self.main.add_widget(self.status)
         self.main.add_widget(self.bottom_void)
