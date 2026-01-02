@@ -1,3 +1,4 @@
+from time import sleep
 from kivy.graphics import Canvas, Color
 from android import mActivity
 from jnius import autoclass, cast
@@ -21,7 +22,8 @@ class TransferingService:
         PythonService = autoclass("org.kivy.android.PythonService")
 
         self.main_class = autoclass(self.java_class)
-        self.main_class.start()
+        sleep(0.5)
+        self.main_class.start(mActivity.getApplicationContext(), '')
         self.main_service = self.main_class.mService
         foreground_type = (
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
@@ -36,7 +38,7 @@ class TransferingService:
         )
         builder = n.start_building()
 
-        self.main.startForeground(n.id, builder.build(), foreground_type)
+        self.main_service.startForeground(n.id, builder.build(), foreground_type)
 
     def check(self) -> bool:
         context = mActivity.getApplicationContext()
@@ -51,7 +53,7 @@ class TransferingService:
         return False
 
     def stop(self):
-        self.main.stopSelf()
+        self.main_class.stopSelf()
 
 
 class MyApp(App):
