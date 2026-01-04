@@ -14,9 +14,9 @@ import java.util.HashMap;
 public class Bridge {
   private static final String TAG = "ObsBridgeApp";
   private UsbManager usbManager;
-  public Bridge() {
+  public Bridge(Context context) {
     Log.d(TAG, "Initialize");
-    this.usbManager = getSystemService(Context.USB_SERVICE);
+    this.usbManager = context.getSystemService(Context.USB_SERVICE);
 
     HashMap<String, UsbDevice> connectedDevices =
         this.usbManager.getDeviceList();
@@ -28,13 +28,13 @@ public class Bridge {
   public void connect() {}
   public int get_cadr() {}
   public void send_cadr(int i) {}
-  public static void run() {
+  public static void run(Context context) {
     /* Main func
      * Entry point
      */
     Log.d(TAG, "Java is running");
 
-    Bridge main = new Bridge();
+    Bridge main = new Bridge(context);
     main.connect();
     int i = 1;
     while (i < 7) {

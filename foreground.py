@@ -1,5 +1,6 @@
 print("lokrestts")
 from jnius import autoclass
+from android import mActivity
 from kivy.logger import Logger
 
 from android_notify import Notification
@@ -32,8 +33,9 @@ def main():
     startForeground()
     # Notification для foreground service
     Logger.info("Transfering: Java sclass run")
+    context = mActivity.getApplicationContext()
     java_service = autoclass("org.obsbridge.Bridge")
-    java_service.run()
+    java_service.run(context)
 
 
 Logger.info("Transferring: Service runned")
