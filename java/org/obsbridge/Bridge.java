@@ -13,9 +13,10 @@ import java.util.HashMap;
 
 public class Bridge {
   private static final String TAG = "ObsBridgeApp";
+  private UsbManager usbManager;
   public Bridge() {
     Log.d(TAG, "Initialize");
-    UsbManager this.usbManager = getSystemService(Context.USB_SERVICE);
+    this.usbManager = getSystemService(Context.USB_SERVICE);
 
     HashMap<String, UsbDevice> connectedDevices =
         this.usbManager.getDeviceList();
