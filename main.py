@@ -10,35 +10,14 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 
-from android_notify import Notification
-
 
 class TransferingService:
     java_class = "io.github.michael32034.obsbridgeapp.ServiceTransfering"
 
     def start(self) -> None:
-        BuildVersion = autoclass("android.os.Build$VERSION")
-        ServiceInfo = autoclass("android.content.pm.ServiceInfo")
-        PythonService = autoclass("org.kivy.android.PythonService")
 
         self.main_class = autoclass(self.java_class)
-        sleep(0.5)
         self.main_class.start(mActivity.getApplicationContext(), '')
-        self.main_service = self.main_class.mService
-        foreground_type = (
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
-            | ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
-            if BuildVersion.SDK_INT >= 30
-            else 0
-        )
-
-        n = Notification(
-            title="Foreground Service Active",
-            message="This service is running in the foreground",
-        )
-        builder = n.start_building()
-
-        self.main_service.startForeground(n.id, builder.build(), foreground_type)
 
     def check(self) -> bool:
         context = mActivity.getApplicationContext()
