@@ -16,7 +16,7 @@ public class Bridge {
   private UsbManager usbManager;
   public Bridge(Context context) {
     Log.d(TAG, "Initialize");
-    this.usbManager = context.getSystemService(Context.USB_SERVICE);
+    this.usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
 
     HashMap<String, UsbDevice> connectedDevices =
         this.usbManager.getDeviceList();
