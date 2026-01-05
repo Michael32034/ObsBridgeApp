@@ -14,19 +14,31 @@ import java.util.HashMap;
 public class Bridge {
   private static final String TAG = "ObsBridgeApp";
   private UsbManager usbManager;
+  private UsbDevice device;
+  private Context context;
   public Bridge(Context context) {
+    this.context = context
     Log.d(TAG, "Initialize");
-    this.usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
+    this.usbManager = (UsbManager) this.context.getSystemService(Context.USB_SERVICE);
 
     HashMap<String, UsbDevice> connectedDevices =
         this.usbManager.getDeviceList();
 
     for (UsbDevice device : connectedDevices.values()) {
       Log.d(TAG, "#UsbDevice: " + device.getDeviceName());
+      this.device = device
     };
   }
-  public void connect() {}
-  public int get_cadr() {}
+  public void connect() {
+    if (this.device != null) {
+      Log.i(TAG, "Conecting start, wait PendingIntent") 
+      PendingIntent permissionIntent = PendingIntent.getBroadcast(this.context, 0, new Intent(ACTION_USB_PERMISSION), 0);
+      this.usbManager.requestPermission(device, permissionIntent);
+    } else {
+      Log.i(TAG, "Device not finded") 
+    }
+  }
+  public int get_cadr() {return 1}
   public void send_cadr(int i) {}
   public static void run(Context context) {
     /* Main func
